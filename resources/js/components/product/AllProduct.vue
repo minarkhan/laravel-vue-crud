@@ -19,8 +19,8 @@
                 <td>{{ product.detail }}</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <router-link :to="{name: 'edit', params: { id: product.id }}" class="btn btn-success">Edit</router-link>
-                        <router-link :to="{name: 'show', params: { id: product.id }}" class="btn btn-success">Show</router-link>
+                        <router-link :to="{name: 'product.edit', params: { id: product.id }}" class="btn btn-success">Edit</router-link>
+                        <router-link :to="{name: 'product.show', params: { id: product.id }}" class="btn btn-success">Show</router-link>
                         <button class="btn btn-danger" @click="deleteProduct(product.id)">Delete</button>
                     </div>
                 </td>

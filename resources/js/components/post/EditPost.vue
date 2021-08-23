@@ -1,16 +1,16 @@
 <template>
     <div>
-        <h3 class="text-center">Edit Product</h3>
+        <h3 class="text-center">Edit post</h3>
         <div class="row">
             <div class="col-md-6">
-                <form @submit.prevent="updateProduct">
+                <form @submit.prevent="updatepost">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" v-model="product.name">
+                        <input type="text" class="form-control" v-model="post.title">
                     </div>
                     <div class="form-group">
                         <label>Detail</label>
-                        <input type="text" class="form-control" v-model="product.detail">
+                        <input type="text" class="form-control" v-model="post.description">
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
@@ -23,22 +23,22 @@
     export default {
         data() {
             return {
-                product: {}
+                post: {}
             }
         },
         created() {
             this.axios
-                .get(`http://localhost:8000/api/products/${this.$route.params.id}`)
+                .get(`http://localhost:8000/api/posts/${this.$route.params.id}`)
                 .then((res) => {
-                    this.product = res.data;
+                    this.post = res.data;
                 });
         },
         methods: {
-            updateProduct() {
+            updatepost() {
                 this.axios
-                    .patch(`http://localhost:8000/api/products/${this.$route.params.id}`, this.product)
+                    .patch(`http://localhost:8000/api/posts/${this.$route.params.id}`, this.post)
                     .then((res) => {
-                        this.$router.push({ name: 'home' });
+                        this.$router.push({ name: 'posts' });
                     });
             }
         }

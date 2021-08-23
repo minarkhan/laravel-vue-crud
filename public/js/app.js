@@ -1964,10 +1964,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      posts: []
+      posts: [],
+      serial: 1
     };
   },
   created: function created() {
@@ -2039,7 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.axios.post('http://localhost:8000/api/posts', this.post).then(function (response) {
         return _this.$router.push({
-          name: 'home'
+          name: 'posts'
         });
       })["catch"](function (err) {
         return console.log(err);
@@ -2087,23 +2090,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: {}
+      post: {}
     };
   },
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://localhost:8000/api/products/".concat(this.$route.params.id)).then(function (res) {
-      _this.product = res.data;
+    this.axios.get("http://localhost:8000/api/posts/".concat(this.$route.params.id)).then(function (res) {
+      _this.post = res.data;
     });
   },
   methods: {
-    updateProduct: function updateProduct() {
+    updatepost: function updatepost() {
       var _this2 = this;
 
-      this.axios.patch("http://localhost:8000/api/products/".concat(this.$route.params.id), this.product).then(function (res) {
+      this.axios.patch("http://localhost:8000/api/posts/".concat(this.$route.params.id), this.post).then(function (res) {
         _this2.$router.push({
-          name: 'home'
+          name: 'posts'
         });
       });
     }
@@ -2147,26 +2150,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      product: {}
+      post: {}
     };
   },
   created: function created() {
     var _this = this;
 
-    this.axios.get("http://localhost:8000/api/products/".concat(this.$route.params.id)).then(function (res) {
-      _this.product = res.data;
+    this.axios.get("http://localhost:8000/api/posts/".concat(this.$route.params.id)).then(function (res) {
+      _this.post = res.data;
     });
-  },
-  methods: {
-    updateProduct: function updateProduct() {
-      var _this2 = this;
-
-      this.axios.patch("http://localhost:8000/api/products/".concat(this.$route.params.id), this.product).then(function (res) {
-        _this2.$router.push({
-          name: 'home'
-        });
-      });
-    }
   }
 });
 
@@ -2289,7 +2281,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.axios.post('http://localhost:8000/api/products', this.product).then(function (response) {
         return _this.$router.push({
-          name: 'home'
+          name: 'products'
         });
       })["catch"](function (err) {
         return console.log(err);
@@ -2353,7 +2345,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.axios.patch("http://localhost:8000/api/products/".concat(this.$route.params.id), this.product).then(function (res) {
         _this2.$router.push({
-          name: 'home'
+          name: 'products'
         });
       });
     }
@@ -2413,7 +2405,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.axios.patch("http://localhost:8000/api/products/".concat(this.$route.params.id), this.product).then(function (res) {
         _this2.$router.push({
-          name: 'home'
+          name: 'products'
         });
       });
     }
@@ -38872,8 +38864,10 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.post, function(post) {
+          _vm._l(_vm.posts, function(post) {
             return _c("tr", { key: post.id }, [
+              _c("td", [_vm._v(_vm._s(_vm.serial++))]),
+              _vm._v(" "),
               _c("td", [_vm._v(_vm._s(post.id))]),
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(post.title))]),
@@ -38890,7 +38884,7 @@ var render = function() {
                       {
                         staticClass: "btn btn-success",
                         attrs: {
-                          to: { title: "edit", params: { id: post.id } }
+                          to: { name: "post.edit", params: { id: post.id } }
                         }
                       },
                       [_vm._v("Edit")]
@@ -38901,7 +38895,7 @@ var render = function() {
                       {
                         staticClass: "btn btn-success",
                         attrs: {
-                          to: { title: "show", params: { id: post.id } }
+                          to: { name: "post.show", params: { id: post.id } }
                         }
                       },
                       [_vm._v("Show")]
@@ -38939,6 +38933,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", [_vm._v("SL")]),
+        _vm._v(" "),
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("title")]),
@@ -39075,7 +39071,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", { staticClass: "text-center" }, [_vm._v("Edit Product")]),
+    _c("h3", { staticClass: "text-center" }, [_vm._v("Edit post")]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
@@ -39085,7 +39081,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.updateProduct.apply(null, arguments)
+                return _vm.updatepost.apply(null, arguments)
               }
             }
           },
@@ -39098,19 +39094,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.product.name,
-                    expression: "product.name"
+                    value: _vm.post.title,
+                    expression: "post.title"
                   }
                 ],
                 staticClass: "form-control",
                 attrs: { type: "text" },
-                domProps: { value: _vm.product.name },
+                domProps: { value: _vm.post.title },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.product, "name", $event.target.value)
+                    _vm.$set(_vm.post, "title", $event.target.value)
                   }
                 }
               })
@@ -39124,19 +39120,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.product.detail,
-                    expression: "product.detail"
+                    value: _vm.post.description,
+                    expression: "post.description"
                   }
                 ],
                 staticClass: "form-control",
                 attrs: { type: "text" },
-                domProps: { value: _vm.product.detail },
+                domProps: { value: _vm.post.description },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.$set(_vm.product, "detail", $event.target.value)
+                    _vm.$set(_vm.post, "description", $event.target.value)
                   }
                 }
               })
@@ -39177,67 +39173,61 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("h3", { staticClass: "text-center" }, [_vm._v("Details of Product")]),
+    _c("h3", {}, [_vm._v("Details of post")]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-6" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Name: " + _vm._s(_vm.product.name))]),
+          _c("label", [_vm._v("Name: " + _vm._s(_vm.post.name))]),
           _vm._v(" "),
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.product.name,
-                expression: "product.name"
+                value: _vm.post.title,
+                expression: "post.title"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text" },
-            domProps: { value: _vm.product.name },
+            domProps: { value: _vm.post.title },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.product, "name", $event.target.value)
+                _vm.$set(_vm.post, "title", $event.target.value)
               }
             }
           })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Detail: " + _vm._s(_vm.product.detail))]),
+          _c("label", [_vm._v("Detail: " + _vm._s(_vm.post.detail))]),
           _vm._v(" "),
           _c("input", {
             directives: [
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.product.detail,
-                expression: "product.detail"
+                value: _vm.post.description,
+                expression: "post.description"
               }
             ],
             staticClass: "form-control",
             attrs: { type: "text" },
-            domProps: { value: _vm.product.detail },
+            domProps: { value: _vm.post.description },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.product, "detail", $event.target.value)
+                _vm.$set(_vm.post, "description", $event.target.value)
               }
             }
           })
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("Update")]
-        )
+        ])
       ])
     ])
   ])
@@ -39303,7 +39293,10 @@ var render = function() {
                       {
                         staticClass: "btn btn-success",
                         attrs: {
-                          to: { name: "edit", params: { id: product.id } }
+                          to: {
+                            name: "product.edit",
+                            params: { id: product.id }
+                          }
                         }
                       },
                       [_vm._v("Edit")]
@@ -39314,7 +39307,10 @@ var render = function() {
                       {
                         staticClass: "btn btn-success",
                         attrs: {
-                          to: { name: "show", params: { id: product.id } }
+                          to: {
+                            name: "product.show",
+                            params: { id: product.id }
+                          }
                         }
                       },
                       [_vm._v("Show")]

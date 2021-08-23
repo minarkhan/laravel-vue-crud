@@ -6,6 +6,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th>SL</th>
                 <th>ID</th>
                 <th>title</th>
                 <th>description</th>
@@ -13,14 +14,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="post in post" :key="post.id">
+            <tr v-for="post in posts" :key="post.id">
+                <td>{{ serial++ }}</td>
                 <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.description }}</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <router-link :to="{title: 'edit', params: { id: post.id }}" class="btn btn-success">Edit</router-link>
-                        <router-link :to="{title: 'show', params: { id: post.id }}" class="btn btn-success">Show</router-link>
+                        <router-link :to="{name: 'post.edit', params: { id: post.id }}" class="btn btn-success">Edit</router-link>
+                        <router-link :to="{name: 'post.show', params: { id: post.id }}" class="btn btn-success">Show</router-link>
                         <button class="btn btn-danger" @click="deletepost(post.id)">Delete</button>
                     </div>
                 </td>
@@ -34,7 +36,8 @@
     export default {
         data() {
             return {
-                posts: []
+                posts: [],
+                serial: 1
             }
         },
         created() {

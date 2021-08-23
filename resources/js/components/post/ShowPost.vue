@@ -1,18 +1,18 @@
 <template>
     <div>
-        <h3 class="text-center">Details of Product</h3>
+        <h3 class="">Details of post</h3>
         <div class="row">
             <div class="col-md-6">
-                <!-- <form @submit.prevent="updateProduct"> -->
+                <!-- <form @submit.prevent="updatepost"> -->
                     <div class="form-group">
-                        <label>Name: {{ product.name }}</label>
-                        <input type="text" class="form-control" v-model="product.name">
+                        <label>Name: {{ post.name }}</label>
+                        <input type="text" class="form-control" v-model="post.title">
                     </div>
                     <div class="form-group">
-                        <label>Detail: {{ product.detail }}</label>
-                        <input type="text" class="form-control" v-model="product.detail">
+                        <label>Detail: {{ post.detail }}</label>
+                        <input type="text" class="form-control" v-model="post.description">
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <!-- <button type="submit" class="btn btn-primary">Update</button> -->
                 <!-- </form> -->
             </div>
         </div>
@@ -23,24 +23,15 @@
     export default {
         data() {
             return {
-                product: {}
+                post: {}
             }
         },
         created() {
             this.axios
-                .get(`http://localhost:8000/api/products/${this.$route.params.id}`)
+                .get(`http://localhost:8000/api/posts/${this.$route.params.id}`)
                 .then((res) => {
-                    this.product = res.data;
+                    this.post = res.data;
                 });
-        },
-        methods: {
-            updateProduct() {
-                this.axios
-                    .patch(`http://localhost:8000/api/products/${this.$route.params.id}`, this.product)
-                    .then((res) => {
-                        this.$router.push({ name: 'home' });
-                    });
-            }
         }
     }
 </script>
